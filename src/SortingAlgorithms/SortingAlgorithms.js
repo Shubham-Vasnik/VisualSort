@@ -37,8 +37,8 @@ const sleep = milliseconds => {
             }
         }
         if(noSwaps){
-            for(var i = 0;i<arrayBar.length;i++){
-                arrayBar[i].style.backgroundColor="green";
+            for(var k = 0;k<arrayBar.length;k++){
+                arrayBar[k].style.backgroundColor="green";
             }
             break;
         }
@@ -57,7 +57,6 @@ const selectionSort = async(arr,delay) => {
            await sleep(delay);
             arrayBar[min].style.backgroundColor="#292b2c";
             arrayBar[j].style.backgroundColor="#292b2c";
-            console.log(arr[j],arr[min]);
             if(arr[j]<arr[min]){
                 min=j;
             }
@@ -66,7 +65,6 @@ const selectionSort = async(arr,delay) => {
             swap(arr,i,min);
         }
         arrayBar[i].style.backgroundColor="green";
-        console.log(arr);
     }
     
     return arr;
@@ -88,10 +86,9 @@ const insertionSort = async (arr,delay) =>{
         arrayBar[j+1].style.height = currentHeight;
         arr[j+1] = currentVal;
     }
-    for(var i = 0;i<arrayBar.length;i++){
-        arrayBar[i].style.backgroundColor="green";
+    for( var k = 0;k<arrayBar.length;k++){
+        arrayBar[k].style.backgroundColor="green";
     }
-    console.log(arr);
     return arr;
 }
 
