@@ -7,9 +7,8 @@ function swap(arr,indx1,indx2){
     let barTwo = arrayBar[indx2].style;
     barOne.backgroundColor="orange";
     barTwo.backgroundColor="orange";
-   let tempHeight = barOne.height
-    barOne.height = barTwo.height;
-    barTwo.height = tempHeight;
+    barOne.height = `${arr[indx1]}px`;
+    barTwo.height = `${arr[indx2]}px`
 }
 
 const sleep = milliseconds => {
@@ -73,17 +72,16 @@ const selectionSort = async(arr,delay) => {
 const insertionSort = async (arr,delay) =>{
     var arrayBar=document.getElementsByClassName("array-bar");
     for(var i = 1;i<arr.length;i++){
-        var currentHeight=arrayBar[i].style.height;
         arrayBar[i].style.backgroundColor="red";
         var currentVal=arr[i];
         for(var j = i-1;j>=0 && arr[j]>currentVal;j--){
             arrayBar[j].style.backgroundColor="orange";
             await sleep(delay);
             arr[j+1] = arr[j];
-            arrayBar[j+1].style.height = arrayBar[j].style.height;
+            arrayBar[j+1].style.height = `${arr[j+1]}px`;
             arrayBar[j].style.backgroundColor="#292b2c";
         }
-        arrayBar[j+1].style.height = currentHeight;
+        arrayBar[j+1].style.height = `${currentVal}px`;
         arr[j+1] = currentVal;
     }
     for( var k = 0;k<arrayBar.length;k++){
@@ -154,5 +152,42 @@ const mergeSort = async (arr,start,end,arr2,delay) => {
 }
 
 
+const partition = async (arr,start,end,delay) =>{
+    var arrayBar=document.getElementsByClassName("array-bar");
+    let pivot = arr[start];
+    let pivotIndx = start;
+    for(var i = start + 1;i <= end;i++){
+        arrayBar[i].style.backgroundColor='red';
+        arrayBar[pivotIndx].style.backgroundColor='red';
+        if(pivot>arr[i]){
+            pivotIndx++;
+            swap(arr,i,pivotIndx);
+        }
+        await sleep(delay+2);
+        arrayBar[i].style.backgroundColor='#292b2c';
+        arrayBar[pivotIndx].style.backgroundColor='#292b2c';  
+    }
+    swap(arr,start,pivotIndx);
+    arrayBar[start].style.backgroundColor='#292b2c';
+    arrayBar[pivotIndx].style.backgroundColor='green';
+//     console.log(arr);
+    return pivotIndx;
+}
 
-export  {bubbleSort,selectionSort,insertionSort,mergeSort};
+const quickSort = async (arr,start,end,delay) =>{
+    if(start>end){
+        return;
+    }
+    var pivot = await partition(arr,start,end,delay);
+    await Promise.all(
+        [
+            quickSort(arr,start,pivot-1,delay),
+            quickSort(arr,pivot+1,end,delay)
+        ]
+    );
+    
+
+    return arr;
+}
+
+export  {bubbleSort,selectionSort,insertionSort,mergeSort,quickSort};
