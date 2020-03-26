@@ -94,5 +94,65 @@ const insertionSort = async (arr,delay) =>{
 
 
 
+const merge = async (arr,start,mid,end,arr2,delay) => {
+    var arrayBar=document.getElementsByClassName("array-bar");
+    let k = start;
+    let i = start;
+    let j = mid +1;
+    while(i<=mid && j<=end){
+        
+        arrayBar[i].style.backgroundColor='red';
+        arrayBar[j].style.backgroundColor='red';
+        await sleep(delay);
+        arrayBar[i].style.backgroundColor='#292b2c';
+        arrayBar[j].style.backgroundColor='#292b2c';
 
-export  {bubbleSort,selectionSort,insertionSort};
+        if(arr2[i]<=arr2[j]){
+            arrayBar[k].style.height=`${arr2[i]}px`;
+            arr[k++]=arr2[i++];
+            
+        }
+        else{
+            arrayBar[k].style.height=`${arr2[j]}px`;
+            arr[k++]=arr2[j++];
+        }
+    }
+    while(i<=mid){
+        arrayBar[i].style.backgroundColor='red';
+        await sleep(delay);
+        arrayBar[i].style.backgroundColor='#292b2c';
+        arrayBar[k].style.height=`${arr2[i]}px`;
+        arr[k++] = arr2[i++];
+        
+    }
+    while(j<=end){
+        arrayBar[j].style.backgroundColor='red';
+        await sleep(delay);
+        arrayBar[j].style.backgroundColor='#292b2c';
+        arrayBar[k].style.height=`${arr2[j]}px`;
+        arr[k++] = arr2[j++];
+        
+    }
+}
+
+const mergeSort = async (arr,start,end,arr2,delay) => {
+    if(start===end){
+        return;
+    }
+    const mid = Math.floor((start+end)/2);
+    await Promise.all([mergeSort(arr2,start,mid,arr,delay),mergeSort(arr2,mid+1,end,arr,delay)]);
+    await merge(arr,start,mid,end,arr2,delay);
+    console.log(arr);
+
+    var arrayBar=document.getElementsByClassName("array-bar");
+    for(var i = 0;i<arr.length;i++){
+        if(arr[i]<=arr[i+1]){
+            arrayBar[i].style.backgroundColor="green";
+        }
+    }
+    arrayBar[arr.length-1].style.backgroundColor="green";
+}
+
+
+
+export  {bubbleSort,selectionSort,insertionSort,mergeSort};

@@ -1,7 +1,7 @@
 import './stylesheets/visualizer.css'
 import React from 'react';
 import RenderArray from './RenderArray';
-import {bubbleSort,selectionSort,insertionSort} from '../SortingAlgorithms/SortingAlgorithms';
+import {bubbleSort,selectionSort,insertionSort,mergeSort} from '../SortingAlgorithms/SortingAlgorithms';
 
 const MAX = Number(window.innerHeight)-150;
 const LENGHT = 300;
@@ -59,7 +59,11 @@ class Visualizer extends React.Component{
                 bubbleSort(this.state.array,this.state.delay);
                 break;
             case "Merge Sort":
-                console.log("hi merge");
+                console.log("Merge Sort");
+                let arr=this.state.array;
+                let arr2 = arr.slice();
+                let end =arr.length-1
+                mergeSort(arr,0,end,arr2,this.state.delay);
                 break;
             case "Quick Sort":
                 console.log("hi quick");
