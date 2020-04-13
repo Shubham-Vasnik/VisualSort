@@ -1,0 +1,37 @@
+.box div{
+    display: inline-block;
+    height:50px!important;
+    width: 50px!important;
+}
+
+.box {
+    font-size: 28px;
+}
+
+.sorted{
+    background-color: green;
+}
+.compare{
+    background-color: red;
+}
+.swap{
+    background-color: orange;
+}
+.unsorted{
+    background-color: #292b2c;
+}
+
+.info{
+    margin-top: 12px;
+}
+
+.timecom {
+    color: white;
+    background-color: #292b2c;
+    padding-left: 12px;
+    margin-bottom: 12px;
+    border-radius: .3rem;
+}
+.timecom h4,.timecom h5 {
+    display:inline-block;
+}

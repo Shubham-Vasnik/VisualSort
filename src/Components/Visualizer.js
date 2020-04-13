@@ -1,6 +1,7 @@
 import './stylesheets/visualizer.css'
 import React from 'react';
 import RenderArray from './RenderArray';
+import Info from './Info';
 import {bubbleSort,selectionSort,insertionSort,mergeSort, quickSort, radixSort} from '../SortingAlgorithms/SortingAlgorithms';
 
 const MAX = Number(window.innerHeight)-150;
@@ -9,7 +10,7 @@ const LENGHT = 300;
 
 class Visualizer extends React.Component{
 
-    state = { array: [1,2,3], size:250,delay:3};
+    state = { array: [1,2,3], size:250,delay:3,};
 
     randomArray = (length, max) =>
         [...new Array(length)].map(() => Math.round(Math.random() * max));
@@ -106,27 +107,40 @@ class Visualizer extends React.Component{
         }
     }
 
+    getInfo = (event) => {
+        event.preventDefault();
+        this.props.setInfo();
+    };
+
     render(){
         return (
             <div>
-                <div>
-                    <h2>{this.props.algorithm}</h2>
-                <form className="form-inline">
-                    <div className="form-group mb-2">
-                        <label htmlFor="arraySize" className=""> Array Size </label>
-                        <input type="text"  className="form-control" id="arraySize" onChange={e => this.onInputChange(e)} placeholder={this.state.size}/>
-                    </div>
-                    <button type="submit" id="select" className="btn btn-dark mb-2 mybtn" onClick={e => this.setArraySize(e)}>Select</button>
-                    <button type="submit" id="reset" className="btn btn-dark mb-2 mybtn" onClick={e => this.setArraySize(e)}>Reset Array</button>
-                    <button type="submit" id="start" className="btn btn-dark mb-2 mybtn" onClick={e => this.startAlgorithm(e)}>Start</button>
-                    <div className="slider-container">
-                       <span>Slow</span>
-                            <input type="range" min="3" max="300" slider-step="50" className="form-control" id="delay" onChange={e => this.onSliderChange(e)} value={(303-this.state.delay)}/>
-                        <span>Fast</span>
-                    </div>
-                </form>
-                </div>
-                <RenderArray array={this.state.array}/>
+                 <h2>{this.props.algorithm} <button type="submit" id="info" className="btn btn-dark mb-2 mybtn" onClick={e => this.getInfo(e)}>Info</button></h2>
+                {
+                     this.props.info 
+                     ? (<Info algorithm= {this.props.algorithm} /> )
+                     :(
+                        <div>
+                        <div>
+                        <form className="form-inline">
+                            <div className="form-group mb-2">
+                                <label htmlFor="arraySize" className="size-label"> Array Size : </label>
+                                <input type="text"  className="form-control" id="arraySize" onChange={e => this.onInputChange(e)} placeholder={this.state.size}/>
+                            </div>
+                            <button type="submit" id="select" className="btn btn-dark mb-2 mybtn" onClick={e => this.setArraySize(e)}>Select</button>
+                            <button type="submit" id="reset" className="btn btn-dark mb-2 mybtn" onClick={e => this.setArraySize(e)}>Reset Array</button>
+                            <button type="submit" id="start" className="btn btn-dark mb-2 mybtn" onClick={e => this.startAlgorithm(e)}>Start</button>
+                            <div className="slider-container">
+                               <span>Slow</span>
+                                    <input type="range" min="3" max="300" slider-step="50" className="form-control" id="delay" onChange={e => this.onSliderChange(e)} value={(303-this.state.delay)}/>
+                                <span>Fast</span>
+                            </div>
+                        </form>
+                        </div>
+                        <RenderArray array={this.state.array}/>
+                        </div>
+                        )
+                }   
             </div>
         );
     }
