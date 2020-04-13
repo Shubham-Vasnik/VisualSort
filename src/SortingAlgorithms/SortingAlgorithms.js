@@ -190,4 +190,52 @@ const quickSort = async (arr,start,end,delay) =>{
     return arr;
 }
 
-export  {bubbleSort,selectionSort,insertionSort,mergeSort,quickSort};
+const getDigit = (num,i) =>{
+    return Math.floor((Math.abs(num)/10**i)%10);
+}
+
+const digitCount = (num) =>{
+    if(num===0) return 1;
+    return Math.floor(Math.log10(Math.abs(num))) + 1;
+}
+
+const mostDigits = (nums) => {
+    let maxDigits = 0;
+    for(let i = 0;i<nums.length;i++){
+        maxDigits = Math.max(maxDigits,digitCount(nums[i]));
+    }
+    return maxDigits;
+}
+
+const  radixSort = async (arr,delay) =>{
+    const colors = ['#FFFF00','#808000','#00FFFF','#008080','#0000FF','#000080','#FF00FF','#800080','#800000','#00FF00'];
+    let arrayBar=document.getElementsByClassName("array-bar");
+    let maxDigitCount = mostDigits(arr);
+    for(let i = 0;i<maxDigitCount;i++){
+       let digitBuckets = Array.from({length:10},() => []);
+       let trackColor = {}
+       for(let j = 0;j<arr.length;j++){
+           let digit = getDigit(arr[j],i);
+           digitBuckets[digit].push(arr[j]);
+           arrayBar[j].style.backgroundColor=colors[digit];
+           trackColor[arr[j]] = digit;
+           await sleep(delay);
+       }
+       arr = [].concat(...digitBuckets);
+       
+       for(let k = 0;k<arrayBar.length;k++){
+           arrayBar[k].style.height=`${arr[k]}px`;
+           arrayBar[k].style.backgroundColor = colors[trackColor[arr[k]]];
+       }
+       await sleep(delay * 100);
+       for(let k = 0;k<arrayBar.length;k++){
+        arrayBar[k].style.backgroundColor='#292b2c';
+    }
+    }
+    for(let k = 0;k<arrayBar.length;k++){
+        arrayBar[k].style.backgroundColor="green";
+    }
+    return arr;
+}
+
+export  {bubbleSort,selectionSort,insertionSort,mergeSort,quickSort,radixSort};

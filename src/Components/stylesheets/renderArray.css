@@ -1,8 +1,10 @@
-.array-container {
-    position: absolute;
-    /* left: 100px; */
-    /* top: 100px; */
-  }
+.array-container{
+  /* margin: auto; */
+  /* display: flex; */
+  /* justify-content: center; */
+  position: absolute;
+  /* text-align: center; */
+}
   
   .array-bar {
     /* width: 2px; */

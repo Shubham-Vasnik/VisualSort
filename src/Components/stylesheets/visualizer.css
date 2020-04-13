@@ -9,6 +9,10 @@
    font-weight: 400;
 }
 
+.mybtn{
+    margin-left:2px ;
+}
+
 #delay{
     margin-left: 2px;
     margin-right: 2px;
@@ -37,4 +41,9 @@
 #delay::-webkit-slider-thumb:hover{
     height: 28px;
     width: 28px;
+}
+
+#delay:disabled{
+    opacity: 65%;
+    cursor:default;
 }

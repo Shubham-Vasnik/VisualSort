@@ -1,7 +1,7 @@
 import './stylesheets/visualizer.css'
 import React from 'react';
 import RenderArray from './RenderArray';
-import {bubbleSort,selectionSort,insertionSort,mergeSort, quickSort} from '../SortingAlgorithms/SortingAlgorithms';
+import {bubbleSort,selectionSort,insertionSort,mergeSort, quickSort, radixSort} from '../SortingAlgorithms/SortingAlgorithms';
 
 const MAX = Number(window.innerHeight)-150;
 const LENGHT = 300;
@@ -9,7 +9,7 @@ const LENGHT = 300;
 
 class Visualizer extends React.Component{
 
-    state = { array: [1,2,3], size:25,delay:3};
+    state = { array: [1,2,3], size:250,delay:3};
 
     randomArray = (length, max) =>
         [...new Array(length)].map(() => Math.round(Math.random() * max));
@@ -49,36 +49,57 @@ class Visualizer extends React.Component{
         this.setSlider();
     }
 
+    btnDisable = () => {
+        document.getElementById('select').disabled=true;
+        document.getElementById('reset').disabled=true;
+        document.getElementById('start').disabled=true;
+        document.getElementById('delay').disabled=true;
+    }
+    btnEnable = () => {
+        document.getElementById('select').disabled=false;
+        document.getElementById('reset').disabled=false;
+        document.getElementById('start').disabled=false;
+        document.getElementById('delay').disabled=false;
+    }
    
 
-    startAlgorithm = (event) => {
+    startAlgorithm = async (event) => {
         event.preventDefault();
+        this.btnDisable()
         switch(this.props.algorithm){
             case "Bubble Sort":
                 console.log("Bubble Sort");
-                bubbleSort(this.state.array,this.state.delay);
+                this.setState({runningAlgo:this.props.algorithm})
+                await bubbleSort(this.state.array,this.state.delay);
+                this.btnEnable();
                 break;
             case "Merge Sort":
                 console.log("Merge Sort");
                 let arr2 = this.state.array.slice();
-                let end =this.state.array.length-1
-                mergeSort(this.state.array,0,end,arr2,this.state.delay);
+                let end =this.state.array.length-1;
+                await mergeSort(this.state.array,0,end,arr2,this.state.delay);
+                this.btnEnable();
                 break;
             case "Quick Sort":
                 console.log("Quick Sort");
                 var endd = this.state.array.length-1;
-                quickSort(this.state.array,0,endd,this.state.delay);
+                await quickSort(this.state.array,0,endd,this.state.delay);
+                this.btnEnable();
                 break;
             case "Selection Sort":
                 console.log("Selection Sort");
-                selectionSort(this.state.array,this.state.delay);
+                await selectionSort(this.state.array,this.state.delay);
+                this.btnEnable();
                 break;
             case "Insertion Sort":
                 console.log("Insertion Sort");
-                insertionSort(this.state.array,this.state.delay)
+                await insertionSort(this.state.array,this.state.delay);
+                this.btnEnable();
                 break;
             case "Radix Sort":
                 console.log("Radix Sort");
+                await radixSort(this.state.array,this.state.delay);
+                this.btnEnable();
                 break;
             default :
                 break;
@@ -95,9 +116,9 @@ class Visualizer extends React.Component{
                         <label htmlFor="arraySize" className=""> Array Size </label>
                         <input type="text"  className="form-control" id="arraySize" onChange={e => this.onInputChange(e)} placeholder={this.state.size}/>
                     </div>
-                    <button type="submit" id="select" className="btn btn-dark mb-2" onClick={e => this.setArraySize(e)}>Select</button>
-                    <button type="submit" id="reset" className="btn btn-dark mb-2" onClick={e => this.setArraySize(e)}>Reset Array</button>
-                    <button type="submit" id="start" className="btn btn-dark mb-2" onClick={e => this.startAlgorithm(e)}>Start</button>
+                    <button type="submit" id="select" className="btn btn-dark mb-2 mybtn" onClick={e => this.setArraySize(e)}>Select</button>
+                    <button type="submit" id="reset" className="btn btn-dark mb-2 mybtn" onClick={e => this.setArraySize(e)}>Reset Array</button>
+                    <button type="submit" id="start" className="btn btn-dark mb-2 mybtn" onClick={e => this.startAlgorithm(e)}>Start</button>
                     <div className="slider-container">
                        <span>Slow</span>
                             <input type="range" min="3" max="300" slider-step="50" className="form-control" id="delay" onChange={e => this.onSliderChange(e)} value={(303-this.state.delay)}/>
