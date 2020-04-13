@@ -1,3 +1,13 @@
+# Visual Sort
+
+A Visualizer For Sorting Algorithms.
+
+It provides a simple step by step representation of different sorting algorithms .
+It helps in understanding how different sorting algorithms work.  
+The project is built in React
+[Running Demo](https://shubham-vasnik.github.io/VisualSort/).
+<br />
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
