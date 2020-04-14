@@ -31,8 +31,8 @@ const Info = (props) => {
                         :(
                         <div className="boxes">
                                 <div className="box"><div className="sorted"></div> <span className='boxname'>Sorted Elements</span></div> 
-                                <div className="box"><div className="compare"></div> <span className='boxname'>Elements Which Are Been Compared</span></div>
-                                <div className="box"><div className="swap"></div> <span className='boxname'>Elements Which Are Been Swaped</span></div>
+                                <div className="box"><div className="compare"></div> <span className='boxname'>Elements Which Are Being Compared</span></div>
+                                <div className="box"><div className="swap"></div> <span className='boxname'>Elements Which Are Being Swaped</span></div>
                                 <div className="box"><div className="unsorted"></div> <span className='boxname'>Unsorted Elements</span></div>
                             </div>
                             )
